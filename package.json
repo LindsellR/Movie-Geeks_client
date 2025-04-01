@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "Movie-Geeks app front end",
   "scripts": {
+    "start": "parcel src/index.html --port 3000",
+    "build": "parcel build src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.14.4",
+    "@parcel/transformer-sass": "^2.14.4"
+  }
 }
