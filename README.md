@@ -36,6 +36,7 @@ Movie-Geeks_client/
 |--README.md        *Documentation*
 
 ## Configuration
+```
 {
   "name": "movie-geeks-client",
   "version": "1.0.0",
@@ -56,7 +57,7 @@ Movie-Geeks_client/
     "@parcel/transformer-sass": "^2.14.4"
   }
 }
-
+```
 ## Clone the Repository
 ```bash
 git clone https://github.com/LindsellR/Movie-Geeks_client.git
