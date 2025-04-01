@@ -20,8 +20,12 @@ This project uses:
 ## Install
 ```bash
 npm install -g parcel
+```
+---
 
 ## Project Structure
+bash
+
 Movie-Geeks_client/
 |--src
     |--index.html   *main HTML file*
@@ -53,4 +57,7 @@ Movie-Geeks_client/
   }
 }
 
-
+## Clone the Repository
+```bash
+git clone https://github.com/LindsellR/Movie-Geeks_client.git
+```
