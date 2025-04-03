@@ -1,5 +1,4 @@
 export const MovieView = ({ movie, onBackClick }) => {
-  console.log("Movie image path: ", movie.image);
     return (
       <div>
         <div>
