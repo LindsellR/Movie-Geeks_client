@@ -1,10 +1,11 @@
 export const MovieView = ({ movie, onBackClick }) => {
+  console.log("Movie recieved by MovieView:", movie)
     return (
       <div>
         <div>
           <img src={movie.image}
           alt={movie.title} 
-          style={{ width: '300px', height: 'auto' }}
+          style={{ width: '200px', height: 'auto' }}
           />
         </div>
         <br></br>
@@ -15,7 +16,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <br></br>
         <div>
             <span>Genre: </span>
-            <span>{movie.genre}</span>
+            {movie.genre}
         </div>
         <br></br>
         <div>
