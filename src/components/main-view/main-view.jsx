@@ -30,8 +30,27 @@ export const MainView = () => {
   }, []);
 
   if (selectedMovie) {
+    let similarMovies = movies.filter((movie) => {
+      return movie.genre === selectedMovie.genre
+      && movie.title !== selectedMovie.title;
+    })
+
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      <>
+        <MovieView 
+          movie={selectedMovie} 
+          onBackClick={() => setSelectedMovie(null)} />
+        <br />
+        <h2>Similar Movies</h2>
+        {similarMovies.map((movie) => (
+          <MovieCard
+            key={movie._id}
+            movie={movie}
+            onMovieClick={(newSelection) => {
+              setSelectedMovie(newSelection);
+          }} />
+        ))}
+      </>
     );
   }
 
