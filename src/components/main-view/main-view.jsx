@@ -11,6 +11,7 @@ export const MainView = () => {
     const [token, setToken] = useState(storedToken? storedToken : null);
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
+    const [error, setError] = useState(undefined);
 
   // useEffect(() => {
   //   if (!token) 
@@ -22,7 +23,7 @@ export const MainView = () => {
   //     headers: {Authorization: `Bearer ${token}`}
   //   })
   //     .then((response) => response.json())
-  //     .then((moviesData) => {
+  //     .then((moviesFromApi) => {
 
   //       const moviesFromApi = moviesData.map((movie) => {
   //         return {
@@ -49,13 +50,14 @@ export const MainView = () => {
     })
       .then((response) => {
         if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(`Error ${response.status}: ${text}`);
-          });
+          setError("No movies today, please try again"); 
+          return; 
         }
         return response.json();
       })
-       .then((moviesData) => {
+      .then((moviesData) => {
+        if (!moviesData) return; 
+        setError(undefined); 
         const moviesFromApi = moviesData.map((movie) => ({
           _id: movie._id,
           title: movie.Title,
@@ -67,12 +69,12 @@ export const MainView = () => {
           actors: movie.Actors || [],
           description: movie.Description
         }));
-  
-       console.log("Formatted movies:", moviesFromApi);
         setMovies(moviesFromApi);
       })
-      .catch((error) => {
-        console.error("Failed to fetch movies:", error.message);
+      .catch((err) => {
+        console.error("Fetch failed:", err.message);
+        setError("Oops! Something went wrong.");
+       
       });
   }, [token]);
   
@@ -117,7 +119,7 @@ export const MainView = () => {
   }
 
   if (movies.length === 0) {
-    return <div>The list is empty!</div>;
+    return <div>Loading, please wait ...</div>;
   }
   
   return (
