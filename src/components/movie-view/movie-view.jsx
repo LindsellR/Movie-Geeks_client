@@ -10,24 +10,39 @@ export const MovieView = ({ movie, onBackClick }) => {
         </div>
         <br></br>
         <div>
-          <span>Title: </span>
+          <strong><span>Title: </span></strong>
           <span>{movie.title}</span>
         </div>
         <br></br>
         <div>
-            <span>Genre: </span>
-            {movie.genre}
-        </div>
-        <br></br>
-        <div>
-          <span>Director: </span>
-          <span>{movie.director}</span>
-        </div>
-        <br></br>
-        <div>
-            <span>Description: </span>
+         <strong><span>Movie Description: </span></strong>
             <span>{movie.description}</span>
         </div>
+        <br></br>
+        <div>
+            <strong><span>Genre: </span></strong>
+            <span>{movie.genre}</span>
+            <p>{movie.genreDescription}</p>
+        </div>
+        <br></br>
+        <div>
+        <strong><span>Director: </span></strong>
+          <span>{movie.director}</span>
+          <p>{movie.bio}</p>
+        </div>
+        <br></br>
+        <div>
+        <strong> <span>Actors: </span></strong>
+          <ul>
+            {movie.actors && movie.actors.map((actor, index) => (
+              <li key={index}>{actor}</li>
+            ))}
+          </ul>
+</div>
+
+       
+
+
         <br></br>
         <button onClick={onBackClick}>Back</button>
       </div>
