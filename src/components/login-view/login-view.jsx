@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Form, Button, Card, CardGroup, Container, Col, Row} from "react-bootstrap";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -35,26 +36,49 @@ export const LoginView = ({ onLoggedIn }) => {
     });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <Container>
+      <Row>
+        {/* <Col></Col> */}
+        <Col>
+          <CardGroup>
+            <Card>
+              <Card.Header>Login to Movie Geeks</Card.Header>
+              <Card.Body>
+                <Form onSubmit={handleSubmit} aria-labelledby="login-heading">
+                  <Form.Group>
+                    <Form.Label htmlFor="username">Username:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                      aria-required="true"
+                      placeholder="Please Enter your Username"
+                    />
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label htmlFor="password">Password:</Form.Label>
+                    <Form.Control
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      aria-required="true"
+                      placeholder="Please Enter your Password"
+                    />
+                  </Form.Group>
+                  <br></br>
+                  <Button type="submit" aria-label="Submit login form">
+                    Log In
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </CardGroup>
+        </Col>
+        {/* <Col></Col> */}
+      </Row>
+    </Container>
   );
 };

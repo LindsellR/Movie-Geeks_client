@@ -1,14 +1,25 @@
 import PropTypes from "prop-types";
+import {Button, Card} from "react-bootstrap"
 
 export const MovieCard = ({ movie, onMovieClick }) => {
     return (
-      <div
-        onClick={() => {
-          onMovieClick(movie);
-        }}
-      >
-        <div>{movie.title}</div>
-      </div>
+      <Card className="h-100">
+        <Card.Img variant="top" src={movie.image} />
+        <Card.Body>
+          <Card.Title>{movie.title}</Card.Title>
+          <Card.Text>{movie.description}</Card.Text>
+          </Card.Body>
+          <Card.Footer className="d-grid gap-2">
+            <Button
+            variant="primary"
+            size="lg"
+            onClick={() => onMovieClick(movie)}
+            >
+            Open
+            </Button>
+          </Card.Footer>
+
+      </Card>
     );
   };
   //Define all props constraints for the MovieCard

@@ -3,6 +3,8 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import {Row, Col, Button, Container} from "react-bootstrap";
+import "../../index.scss"
 
 export const MainView = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -81,16 +83,24 @@ export const MainView = () => {
   
   if (!user) {
     return (
-      <>
+      <Row className="justify-content-md-center">
+        <Col sm={6} role="region" aria-label="Login or Signup form">
+        <br />
+        <h2 id="auth-heading" className="text-center">Login or Sign Up</h2>
+        <br />
         <LoginView
           onLoggedIn={(user, token) => {
             setUser(user);
+            localStorage.setItem("user", JSON.stringify(user));
             setToken(token);
-          }}
-        />
-        or
+            localStorage.setItem("token", token)
+          }}/>
+          <br />
+         <h3 className="text-center">Or</h3>
+         <br />
         <SignupView />
-      </>
+        </Col>
+      </Row>
     );
   }
   if (selectedMovie) {
@@ -100,21 +110,29 @@ export const MainView = () => {
     })
 
     return (
-      <>
-        <MovieView 
-          movie={selectedMovie} 
-          onBackClick={() => setSelectedMovie(null)} />
-        <br />
-        <h2>Similar Movies</h2>
-        {similarMovies.map((movie) => (
-          <MovieCard
-            key={movie._id}
-            movie={movie}
-            onMovieClick={(newSelection) => {
-              setSelectedMovie(newSelection);
-          }} />
-        ))}
-      </>
+      <Row className="justify-content-md-center"   role="region" aria-label={`Details about the movie${selectedMovie.title}`}>
+        <Col md={5}>
+          <MovieView 
+            movie={selectedMovie} 
+            onBackClick={() => setSelectedMovie(null)} />
+          <br />
+      
+          <h2 className="text-center" id="similar-movies-heading">Similar Movies</h2>
+          <Row className="justify-content-md-center" role="region"
+            aria-labelledby="similar-movies-heading">
+              {similarMovies.map((movie) => (
+                <Col className="mb-5"  key={movie._id} lg={7} md={9} sm={12}>
+                    <MovieCard
+                      movie={movie}
+                      onMovieClick={(newSelection) => {
+                        setSelectedMovie(newSelection);
+                   }} 
+                  />
+                </Col>
+              ))}
+          </Row>
+        </Col>
+      </Row>
     );
   }
 
@@ -123,19 +141,36 @@ export const MainView = () => {
   }
   
   return (
-    <div>
-      {movies.map((movie) => (
-       
-        <MovieCard
-          key={movie._id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-            console.log("Movie IDs:", movies.map(m => m._id))
+   <Container className="py-5">
+    <main role="main" aria-label="Movie List View">
+       <Row>
+          {movies.map((movie) => (
+            <Col  className="mb-5" key={movie._id} md={3}>
+                <MovieCard
+                  movie={movie}
+                  onMovieClick={(newSelectedMovie) => {
+                    setSelectedMovie(newSelectedMovie);
+                    //console.log("Movie IDs:", movies.map(m => m._id))
+                  }}
+                />
+            </Col>
+          ))}
+        </Row>  
+        <div className="d-flex justify-content-center mt-5 mb-4 ">
+        <Button className="logout-button w-100"
+          variant="primary" size="lg"
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
           }}
-        />
-      ))}
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-    </div>
+          aria-label="Logout and clear user session"
+        >
+          Logout
+        </Button>
+      </div>
+    </main>
+    </Container>
+    
   );
 };

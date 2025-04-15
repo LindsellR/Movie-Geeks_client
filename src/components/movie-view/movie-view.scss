@@ -1,0 +1,39 @@
+.movie-view-container {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    margin: auto;
+    max-width: 800px;
+  }
+  
+  .movie-image-container {
+    width: 100%;
+  }
+  
+  .movie-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  button.back-button {
+    width: 100%;
+    font-family: "Zen Tokyo Zoo", system-ui;
+    font-size: 1.2rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background-color: DarkSlateBlue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: white;
+      color: DarkSlateBlue;
+    }
+  }
+  
