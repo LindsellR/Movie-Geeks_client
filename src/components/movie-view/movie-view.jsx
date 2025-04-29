@@ -147,9 +147,14 @@ export const MovieView = ({ movies, user, token, onFavouriteChange }) => {
       
         {successMessage && (
           <div
-            className="alert alert-success mt-3"
+            className="alert alert-success text-center mt-3"
             role="status"
             aria-live="polite"
+            style={{ 
+              fontSize: "1.5rem", 
+              color: "green",
+              fontFamily: "Zen Tokyo Zoo, system-ui", 
+             }}
           >
             {successMessage}
           </div>

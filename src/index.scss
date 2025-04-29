@@ -4,7 +4,7 @@ $primary: DarkSlateBlue;
 $body-bg: PapayaWhip;
 $secondary: DarkOliveGreen;
 
-h1, h2, h3, .card-title, .nav-link {
+h1, h2, h3, h4, .card-title, .nav-link {
     font-family: "Limelight", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -41,3 +41,4 @@ h1, h2, h3, .card-title, .nav-link {
     }
 
     @import '~bootstrap/scss/bootstrap.scss';
+   
