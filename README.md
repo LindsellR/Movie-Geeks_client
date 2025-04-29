@@ -60,7 +60,23 @@ npm run build
 ---
 
 ### 5. Project Structure
-<pre lang="markdown"><code>```plaintext Movie-Geeks_client/ ├── src/ │ ├── components/ │ │ ├── movie-card/ │ │ ├── movie-view/ │ │ ├── login-view/ │ │ ├── signup-view/ │ │ ├── navigation-bar/ │ │ └── profile-view/ │ ├── index.html │ ├── index.jsx │ └── index.scss ├── package.json ├── README.md └── node_modules/ ```</code></pre>
+```
+Movie-Geeks_client/
+├── src/
+│   ├── components/
+│   │   ├── movie-card/
+│   │   ├── movie-view/
+│   │   ├── login-view/
+│   │   ├── signup-view/
+│   │   ├── navigation-bar/
+│   │   └── profile-view/
+│   ├── index.html
+│   ├── index.jsx
+│   └── index.scss
+├── package.json
+├── README.md
+└── node_modules/ 
+```
 
 ---
 
