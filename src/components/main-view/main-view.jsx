@@ -12,6 +12,7 @@ import { Row, Col, Container, Spinner } from "react-bootstrap";
 import "../../index.scss";
 
 
+
 export const MainView = () => {
   //local storage to continue login across refreshes
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -23,11 +24,34 @@ export const MainView = () => {
   const [error, setError] = useState(""); //error handling
   const [loading, setLoading]  = useState(true);  //loading spinner
   const [globalMessage, setGlobalMessage] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState(movies);
 
   const handleLogout = () => { 
     setUser(null); 
     localStorage.clear(); //logout function clears local storage
   };
+
+  const handleSearch = (query) => {
+    if (!query) {
+      setFilteredMovies(movies);
+      setError(""); //clear error if search is cleared
+    } else {
+      const lowercasedQuery = query.toLowerCase();
+      const results = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(lowercasedQuery)
+      );
+      setFilteredMovies(results);
+      setError(""); //clear previous errors while searching/typing
+    }
+  };  
+  const handleResetSearch = () => {
+    setFilteredMovies(movies); // <-- reset filtered list
+  };
+  
+  
+  useEffect(() => {
+    setFilteredMovies(movies);
+  }, [movies]);
   
   //runs when user or token changes
   useEffect(() => {
@@ -80,7 +104,13 @@ export const MainView = () => {
   //Navigation bar default
   return (
     <BrowserRouter>
-      <NavigationBar user={user} onLoggedOut={() => setUser(null)} />
+      <NavigationBar 
+      user={user} 
+      onLoggedOut={() => setUser(null)} 
+      onSearch={handleSearch} 
+      onResetSearch={handleResetSearch}
+      />
+      
         <Container className="py-5">
           {error && (
             <div className="alert alert-danger" role="alert" aria-live="polite">
@@ -167,29 +197,53 @@ export const MainView = () => {
                 />
               }
             />
-          <Route
-                  path="/"
-                  element={
-                    !user ? (
-                      <Navigate to="/login" replace />
-                    ) : (
-                      <main role="main" aria-label="Movie List View">
-                    {globalMessage && (
+         <Route
+            path="/"
+            element={
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <main role="main" aria-label="Movie List View">
+                  {globalMessage && (
                     <div
                       className="text-center mb-4"
                       role="status"
                       aria-live="polite"
-                      style={{ fontSize: "1rem", color: "green" }}
+                      style={{ 
+                        fontSize: "2.5rem", 
+                        color: "green",
+                        fontFamily: "Zen Tokyo Zoo, system-ui", 
+                       }}
                     >
                       {globalMessage}
                     </div>
                   )}
+                   {/* Search Bar */}
+                  <div className="mb-4 d-flex justify-content-center">
+                    <div className="input-group w-50">
+                      <span className="input-group-text" id="search-icon">
+                        <i className="bi bi-search"></i>
+                      </span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Search movies..."
+                        aria-label="Search movies by title"
+                        aria-describedby="search-icon"
+                        onChange={(e) => handleSearch(e.target.value)}
+                      />
+                    </div>
+                  </div>
 
                   {movies.length === 0 ? (
                     <div role="alert" aria-live="polite">Loading movies...</div>
+                  ) : filteredMovies.length === 0 ? (
+                    <div className="text-center mt-4" role="alert" aria-live="polite" style={{ fontSize: "1.1rem", color: "red" }}>
+                      No movies found matching your search.
+                    </div>
                   ) : (
                     <Row>
-                      {movies.map((movie) => (
+                      {filteredMovies.map((movie) => (
                         <Col className="mb-5" key={movie._id} md={3}>
                           <MovieCard 
                             movie={movie}
@@ -209,6 +263,7 @@ export const MainView = () => {
               )
             }
           />
+
         </Routes>
       </Container>
     </BrowserRouter>
